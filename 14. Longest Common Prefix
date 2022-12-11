@@ -1,0 +1,42 @@
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        common = ''
+        shorter_word = ''
+        common_final = ''
+
+        if len(strs) == 1:
+            common_final = strs[0]
+        else:
+            if len(strs[0]) > len(strs[1]):
+                shorter_word = strs[1]
+            else:
+                shorter_word = strs[0]
+
+            for i in range(len(shorter_word)):
+                if strs[0][i] == strs[1][i]:
+                    common += strs[0][i]  # common = abc
+                else:
+                    break
+
+            for j in range(len(strs)):  # j = range(4) let j = 2   common = abc
+                if len(common) < len(strs[j]):  # abc vs fsefffwfeefe
+                    shorter_word = common  # shorter word = abc
+                else:
+                    shorter_word = strs[j]
+                if len(shorter_word) == 0:
+                    common_final = ''
+                for k in range(len(shorter_word)):  # 3 let k = 0
+                    if common[k] == strs[j][k]:  # a == a
+                        common_final = common[0: k + 1]  # common final is a
+                    elif k == 0:
+                        common_final = ''
+                        break
+                    else:
+                        break
+                common = common_final
+
+        return common_final
